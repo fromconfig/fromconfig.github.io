@@ -23,5 +23,5 @@
 </p>
 
 <p align="center">
-    <img src="./images/fromconfig.svg">
+    <img src="https://raw.githubusercontent.com/criteo/fromconfig/master/docs/images/fromconfig.svg">
 </p>

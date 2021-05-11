@@ -7,7 +7,3 @@ class Model:
 
     def train(self):
         print(f"Training model with learning_rate {self.learning_rate}")
-
-
-def hello(name):
-    print(f"Hello {name}")
