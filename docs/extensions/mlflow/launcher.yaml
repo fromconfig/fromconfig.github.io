@@ -1,0 +1,11 @@
+# Configure mlflow
+mlflow:
+  # tracking_uri: "http://127.0.0.1:5000"  # Or set env variable MLFLOW_TRACKING_URI
+  # experiment_name: "test-experiment"  # Which experiment to use
+  # run_id: 12345  # To restore a previous run
+  # run_name: test  # To give a name to your new run
+  # artifact_location: "path/to/artifacts"  # Used only when creating a new experiment
+
+# Configure launcher
+launcher:
+  log: mlflow

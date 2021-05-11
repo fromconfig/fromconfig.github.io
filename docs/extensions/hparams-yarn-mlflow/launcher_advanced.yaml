@@ -1,0 +1,51 @@
+# Configure logging
+logging:
+  level: 20
+
+# Configure mlflow
+mlflow:
+  # tracking_uri: "http://127.0.0.1:5000"  # Or set env variable MLFLOW_TRACKING_URI
+  # experiment_name: "test-experiment"  # Which experiment to use
+  # run_id: 12345  # To restore a previous run
+  # run_name: test  # To give a name to your new run
+  # artifact_location: "path/to/artifacts"  # Used only when creating a new experiment
+  # include_keys:  # Only log params that match *model*
+  #   - model
+
+# Configure Yarn
+yarn:
+  # name: test
+  # zip_file: "path/to/env.pex"  # Reuse existing pex
+  # package_path: "hdfs://root/user/..."  # Target path (where to upload the env.pex)
+  # num_cores: 8  # Number of executor's cores
+  # memory: "32 GiB" # Executor's memory
+  # jvm_memory_in_gb: 8  # JVM memory
+  # env_vars:  # Environment variables to forward to yarn
+  #   - CUDA_VISIBLE_DEVICES
+  #   - MLFLOW_RUN_ID
+  #   - MLFLOW_TRACKING_URI
+
+# Configure launcher
+launcher:
+  log:
+    - logging
+    # Start MlFlow Run and set environment variables
+    - _attr_: mlflow
+      set_env_vars: true
+      set_run_id: false
+  parse:
+    # Log both the command and the config before parsing
+    - _attr_: mlflow.log_artifacts
+      path_command: launch.sh
+      path_config: config.yaml
+    - parser
+    # Only log the parsed config
+    - _attr_: mlflow.log_artifacts
+      path_command: null
+      path_config: parsed.yaml
+    # Log the flattened config as run parameters
+    - mlflow.log_params
+  run:
+    - yarn
+    - mlflow
+    - local

@@ -1,0 +1,4 @@
+fn:
+  _attr_: "model.hello"
+  _eval_: "partial"
+  name: "world"
